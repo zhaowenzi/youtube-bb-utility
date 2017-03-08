@@ -11,10 +11,19 @@ form](https://research.google.com/youtube-bb/download.html). The csv files conta
 reason, these scripts are provided for downloading, cutting, and decoding
 the videos into a usable form.
 
-These scripts were written by Mark Buckler and the YouTube BoundingBoxes
-dataset was created and curated by Esteban Real, Jonathon Shlens,
-Stefano Mazzocchi, Xin Pan, and Vincent Vanhoucke. The dataset web page
-is [here](https://research.google.com/youtube-bb/index.html) and the
+This script only downloads the frames that have been labelled for object detection.
+Labels are available for 380,000 video segments of about 19s each.
+Bounding box information is only available every second, so that is about 19 JPG images
+per segment. However, the videos are encoded
+at various framerates (I've found 24fps, 29.99fps, 30fps, ...).
+That is why this script uses OpenCV to extract frames from the closest timestamps that have been labelled. 
+*You can uncomment lines 90 to 96 if you want to print the bounding boxes on the downloaded images.
+I used that to verify that my calculations were ok.*
+
+This script was originally written by Mark Buckler.
+The YouTube BoundingBoxes dataset was created and curated by Esteban Real,
+Jonathon Shlens, Stefano Mazzocchi, Xin Pan, and Vincent Vanhoucke.
+The dataset web page is [here](https://research.google.com/youtube-bb/index.html) and the
 accompanying whitepaper is [here](https://arxiv.org/abs/1702.00824).
 *This fork was written by Mehdi Shibahara*
 
@@ -24,8 +33,8 @@ accompanying whitepaper is [here](https://arxiv.org/abs/1702.00824).
 1. Clone this repository.
 
 2. Install majority of dependencies by running 
-* `pip install -r requirements.txt` in this repo's directory.
-* Install opencv: using conda or build from source
+  + `pip install -r requirements.txt` in this repo's directory.
+  + Install opencv: using conda or build from source
 
 3. Install wget, and [youtube-dl](https://github.com/rg3/youtube-dl)
 through your package manager.
@@ -43,19 +52,12 @@ Note: This script was developed with Python 2.7.
 
 ### Download and decode
 
-The `download.py` script is provided for users who are interested in
-downloading the videos which accompany the provided annotations. It also
+The `download_detection.py` script is provided for users who are interested in
+downloading and decoding the videos which accompany the provided annotations. It also
 cuts these videos down to the range in which they have been
-annotated. Parallel video downloads are supported so that you can
+annotated, then extract only the frames with label.
+Parallel video downloads are supported so that you can
 saturate your download bandwith even though YouTube throttles per-video.
-I was able to download the Detection Validation videos (412 GB) in
-roughly 3 hours.
-
-Once your downloading has completed you may be interested in decoding
-the videos into individual still frames. If this is the case, use the
-decoding script. The script decodes all frames within the clips at 30
-frames per second.
 
 Run `python download_detection.py [VIDEO_DIR] [NUM_THREADS]` to download the dataset into the specified
-directory. If you don't provide a path, a directory named `videos` will be
-created. 
+directory.
