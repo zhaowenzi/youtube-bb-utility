@@ -138,7 +138,7 @@ def parse_and_sched(dl_dir='videos', num_threads=4):
 
         # Get list of unique video files
         vids = df['youtube_id'].unique()
-        
+
         # Download and cut in parallel threads giving
         with futures.ProcessPoolExecutor(max_workers=num_threads) as executor:
             fs = [executor.submit(dl_and_cut,vid,df[df['youtube_id']==vid],d_set_dir) for vid in vids]
