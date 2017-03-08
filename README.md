@@ -3,6 +3,8 @@
 
 # YouTube BoundingBox
 
+ ![Alt text](sample/ABQJpBm9hP8_7000_7_0.jpg?raw=true "Sample image")
+
 This repo contains helpful scripts for using the [YouTube BoundingBoxes](
 https://research.google.com/youtube-bb/index.html) 
 dataset released by Google Research. The only current hosting method 
