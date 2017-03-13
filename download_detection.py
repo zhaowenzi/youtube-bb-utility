@@ -133,7 +133,7 @@ def parse_and_sched(dl_dir='videos', num_threads=4):
 
         # Parse csv data using pandas
         print (d_set+': Parsing annotations into clip data...')
-        df = pd.DataFrame.from_csv('yt_bb_detection_validation.csv', header=None, index_col=False)
+        df = pd.DataFrame.from_csv(d_set+'.csv', header=None, index_col=False)
         df.columns = col_names
 
         # Get list of unique video files
