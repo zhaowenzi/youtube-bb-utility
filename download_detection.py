@@ -13,6 +13,7 @@ import sys
 import cv2
 import pandas as pd
 import numpy as np
+import time
 
 # The data sets to be downloaded
 d_sets = ['yt_bb_detection_validation', 'yt_bb_detection_train']
@@ -59,6 +60,7 @@ def dl_and_cut(vid, data, d_set_dir):
                 'outtmpl':d_set_dir+vid+'_temp.mp4'}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download(['youtu.be/'+vid])
+        time.sleep(2)
 
     # Verify that the video has been downloaded. Skip otherwise
     video_path = d_set_dir+'/'+vid+'_temp.mp4'
